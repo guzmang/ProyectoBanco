@@ -5,10 +5,13 @@ import banco.cuentas.*;
 
 public class Cliente {
 
-	ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
+	private String nombreCliente;
+	private double dni;
+	private ArrayList<Cuenta> cuentas = new ArrayList<Cuenta>();
 	
-	Cliente(Cuenta cuentaInicial){
-		this.cuentas.add(cuentaInicial);
+	public Cliente(String nombreCliente, double dni){
+		this.nombreCliente = nombreCliente;
+		this.dni = dni;
 	}
 	
 	int cantidadCuentasSueldo(){
@@ -36,6 +39,10 @@ public class Cliente {
 	// para ver mejor reflejado el resultado en los tests
 	
 	boolean agregarCuenta(Cuenta cuentaNueva){
+		if(this.cuentas.size() == 0){
+			this.cuentas.add(cuentaNueva);
+			return true;						
+		}			
 		if(cuentaNueva instanceof CuentaSueldo &&
 				this.cantidadCuentasSueldo() >= this.cantidadCuentasCorrientes()){
 			System.out.println("Error: no se ha podido agregar cuenta");

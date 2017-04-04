@@ -1,15 +1,16 @@
 package banco.cuentas;
 
+import banco.personas.Cliente;
+
 public class CuentaSueldo extends Cuenta{
 
 	private String nombreEmpleador;
 	
 	public CuentaSueldo (int nroDeCuenta,
 						String nombreEmpleador,
-						String nombreTitular,
-						double dni,
+						Cliente titular,
 						double saldo){
-		super(nroDeCuenta, nombreTitular, dni, saldo);
+		super(nroDeCuenta, titular, saldo);
 		this.nombreEmpleador = nombreEmpleador;
 	}
 

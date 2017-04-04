@@ -1,15 +1,20 @@
 package banco.cuentas;
 
+import java.util.ArrayList;
+
+import banco.personas.Cliente;
+
 public class CuentaCorriente extends Cuenta{
 
+	private ArrayList<Cliente> titulares = new ArrayList<Cliente>();
 	private final double giroEnRojo;
 
 	public CuentaCorriente (int nroDeCuenta,
-							String nombreTitular,
-							double dni,
+							Cliente titularPrincipal,
 							double saldo,
 							double giroEnRojo){
-		super(nroDeCuenta, nombreTitular, dni, saldo);
+		super(nroDeCuenta, titularPrincipal, saldo);
+		this.titulares.add(titularPrincipal);
 		this.giroEnRojo = giroEnRojo;
 	}
 
@@ -23,5 +28,13 @@ public class CuentaCorriente extends Cuenta{
 				". Quedan $" + getSaldo() + " en su cuenta.");
 		}
 	}
+	
+	public void agregarTitular(Cliente nuevoTitular){
+		this.titulares.add(nuevoTitular);
+	}
+	
+	public ArrayList<Cliente> getTitulares(){
+		return titulares;
+	}	
 	
 }

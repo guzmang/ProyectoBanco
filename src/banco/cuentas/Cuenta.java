@@ -1,19 +1,20 @@
 package banco.cuentas;
 
+import java.util.ArrayList;
+
+import banco.personas.Cliente;
+
 public class Cuenta {
 
 	private int nroDeCuenta;	
-	private String nombreTitular;
-	private double dni;
+	private Cliente titular;
 	private double saldo;
-
+	
 	public Cuenta (int nroDeCuenta,
-					String nombreTitular,
-					double dni,
+					Cliente titular,
 					double saldo){			
 		this.nroDeCuenta = nroDeCuenta;
-		this.nombreTitular = nombreTitular;
-		this.dni = dni;
+		this.titular = titular;
 		this.saldo = saldo;
 	}	
 
@@ -36,9 +37,9 @@ public class Cuenta {
 		System.out.println("Su saldo es de: $" + this.saldo);
 		return this.saldo;
 	}
-
+	
 	public double getSaldo(){
-		return saldo;
+		return this.saldo;
 	}
 
 	public void setSaldo(double saldo){

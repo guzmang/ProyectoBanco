@@ -10,71 +10,79 @@ public class ClienteTest {
 
 	@Test
 	public void testAndaConstructor() {
-		CuentaCorriente cuenta1 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaSueldo cuenta2 = new CuentaSueldo(12345, "Epidata", "German", 35227679, 5000);
+		Cliente german = new Cliente("German", 35227679);
 		
-		Cliente cliente = new Cliente(cuenta1);
+		CuentaCorriente cuenta1 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaSueldo cuenta2 = new CuentaSueldo(12345, "Epidata", german, 5000);
 	}
 
 	@Test
 	public void testAgregarCuentas() {
-		CuentaCorriente cuenta1 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaCorriente cuenta2 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		Cliente cliente = new Cliente(cuenta1);
+		Cliente german = new Cliente("German", 35227679);
+		CuentaCorriente cuenta1 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaCorriente cuenta2 = new CuentaCorriente(12345, german, 0, 1000);
 		
-		// la cuenta del constructor + la que le estoy agregando = 2
-		
-		assertTrue(cliente.agregarCuenta(cuenta2));
-		assertEquals(2, cliente.getCuentas().size());
+		assertTrue(german.agregarCuenta(cuenta1));
+		assertEquals(1, german.getCuentas().size());
 	}
 	
 	@Test
 	public void testCantidadCuentasSueldoYCantidadCuentasCorrientes() {
-		CuentaCorriente cuenta1 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaCorriente cuenta2 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaCorriente cuenta3 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaCorriente cuenta4 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaSueldo cuenta5 = new CuentaSueldo(12345, "Epidata", "German", 35227679, 5000);
-		CuentaSueldo cuenta6 = new CuentaSueldo(12345, "Epidata", "German", 35227679, 5000);
 		
-		Cliente cliente = new Cliente(cuenta1);
+		Cliente german = new Cliente("German", 35227679);
+		
+		CuentaCorriente cuenta1 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaCorriente cuenta2 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaCorriente cuenta3 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaCorriente cuenta4 = new CuentaCorriente(12345, german, 0, 1000);
+		CuentaSueldo cuenta5 = new CuentaSueldo(12345, "Epidata", german, 5000);
+		CuentaSueldo cuenta6 = new CuentaSueldo(12345, "Epidata", german, 5000);
+		
 		boolean estado;
+
+		estado = german.agregarCuenta(cuenta1);
+		estado = german.agregarCuenta(cuenta2);
+		estado = german.agregarCuenta(cuenta3);
+		estado = german.agregarCuenta(cuenta4);
+		estado = german.agregarCuenta(cuenta5);
+		estado = german.agregarCuenta(cuenta6);
 		
-		estado = cliente.agregarCuenta(cuenta2);
-		estado = cliente.agregarCuenta(cuenta3);
-		estado = cliente.agregarCuenta(cuenta4);
-		estado = cliente.agregarCuenta(cuenta5);
-		estado = cliente.agregarCuenta(cuenta6);
-		
-		assertEquals(4, cliente.cantidadCuentasCorrientes());
-		assertEquals(2, cliente.cantidadCuentasSueldo());
+		assertEquals(4, german.cantidadCuentasCorrientes());
+		assertEquals(2, german.cantidadCuentasSueldo());
 	}	
 	
 	@Test
 	public void testNoPuedoTenerMasCuentasSueldoQueCuentasCorrientes() {
-		CuentaCorriente cuenta1 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaCorriente cuenta2 = new CuentaCorriente(12345, "German", 35227679, 0, 1000);
-		CuentaSueldo cuenta3 = new CuentaSueldo(12345, "Epidata", "German", 35227679, 5000);
-		CuentaSueldo cuenta4 = new CuentaSueldo(12345, "Epidata", "German", 35227679, 5000);
+
+		Cliente cliente1 = new Cliente("Cliente1", 1000000);
 		
-		Cliente cliente = new Cliente(cuenta4);
-		Cliente cliente2 = new Cliente(cuenta4);
-		Cliente cliente3 = new Cliente(cuenta4);
+		CuentaCorriente cuenta1 = new CuentaCorriente(12345, cliente1, 0, 1000);
+		CuentaCorriente cuenta2 = new CuentaCorriente(12345, cliente1, 0, 1000);
+		CuentaSueldo cuenta3 = new CuentaSueldo(12345, "Epidata", cliente1, 5000);
+		CuentaSueldo cuenta4 = new CuentaSueldo(12345, "Epidata", cliente1, 5000);		
+
 		boolean estado;
 		
-		estado = cliente2.agregarCuenta(cuenta1);
+		// Empiezo agregando una cuenta sueldo
+		estado = cliente1.agregarCuenta(cuenta3);
+		assertEquals(1, cliente1.getCuentas().size());
 		
-		estado = cliente3.agregarCuenta(cuenta1);
-		estado = cliente3.agregarCuenta(cuenta2);
-		estado = cliente3.agregarCuenta(cuenta3);
+		// No me permite agregar otra cuenta sueldo porque ya tengo 1 y ninguna cc
+		assertFalse(cliente1.agregarCuenta(cuenta4));
+
+		// Agrego una cuenta corriente y tengo una de cada una
+		estado = cliente1.agregarCuenta(cuenta1);
+		assertEquals(2, cliente1.getCuentas().size());
 		
-		assertFalse(cliente.agregarCuenta(cuenta3));
-		assertEquals(1, cliente.getCuentas().size());
+		// Sigue sin dejarme agregar otra cuenta sueldo porque tendria mas de esas que de cc
+		assertFalse(cliente1.agregarCuenta(cuenta4));
 		
-		assertFalse(cliente2.agregarCuenta(cuenta3));
-		assertEquals(2, cliente2.getCuentas().size());
+		// Agrego otra cc, asi tendria 2 de ellas y 1 cuenta sueldo, pudiendo agregar otra
+		estado = cliente1.agregarCuenta(cuenta2);
+		assertTrue(cliente1.agregarCuenta(cuenta4));
 		
-		assertEquals(4, cliente3.getCuentas().size());		
-	}		
+		// Al final, tendre en total 4 cuentas
+		assertEquals(4, cliente1.getCuentas().size());
+	}
 	
 }
