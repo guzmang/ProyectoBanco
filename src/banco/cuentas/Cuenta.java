@@ -27,7 +27,7 @@ public class Cuenta {
 		if(saldoExtraido > getSaldo())
 			System.out.println("Error: El saldo a extraer excede sus fondos");
 		else{
-			setSaldo(getSaldo() - saldoExtraido);
+			this.saldo = this.saldo - saldoExtraido;
 			System.out.println("Ha extraido $" + saldoExtraido + 
 				". Quedan $" + getSaldo() + " en su cuenta.");
 		}
@@ -37,6 +37,18 @@ public class Cuenta {
 		System.out.println("Su saldo es de: $" + this.saldo);
 		return this.saldo;
 	}
+	
+	@Override
+	public boolean equals(Object obj){
+	     if (obj == null)
+	    	 return false;
+	     if (this == obj)
+	    	 return true;
+	     if (!(obj instanceof Cuenta))
+	    	 return false;
+	     Cuenta c = (Cuenta) obj;
+	     return this.nroDeCuenta == c.nroDeCuenta;
+	}	
 	
 	public double getSaldo(){
 		return this.saldo;

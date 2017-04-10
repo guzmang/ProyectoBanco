@@ -33,6 +33,18 @@ public class Cliente {
 	ArrayList<Cuenta> getCuentas(){
 		return cuentas;
 	}
+
+	@Override
+	public boolean equals(Object obj){
+	     if (obj == null)
+	    	 return false;
+	     if (this == obj)
+	    	 return true;
+	     if (!(obj instanceof Cliente))
+	    	 return false;
+	     Cliente c = (Cliente) obj;
+	     return this.dni == c.dni;
+	}
 	
 	// Acerca del metodo que esta a continuacion:
 	// podria devolver void pero a modos didacticos se decidio que devuelva un boolean
