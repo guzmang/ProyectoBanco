@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<title>Proyecto Banco</title>
+		<meta charset="utf-8">
+	</head>
+	<body bgcolor="#E6E6FA">
+		<div align="center">
+			<h1>Datos del cliente</h1>
+				<div>
+					Nombre: <input type="text" name="nombre" id="nombre" value="German" disabled><br>
+					<br>
+					Apellido: <input type="text" name="apellido" id="apellido" value="Guzman" disabled><br>
+					<br>
+					Titular: German Guzman
+				</div>
+				<br>
+				<div>
+					<label for="apellido">DNI: </label>
+					<input type="text" name="dni" id="dni" value="35227679" disabled>
+				</div>
+				
+			<h1>Datos de las cuentas</h1>
+				<input type="button" id="verMasMenos" value="Ocultar" onclick="desplegar()"></input>
+				<div id="todasLasCuentas">				
+					<div>
+						<h2><label>Cuenta 1</label></h2>
+					</div>
+					<div>
+						<label for="titulares">Titulares:</label><br>
+						<br>
+						<input type="text" name="titularCtaCte1" id="titularCtaCte1" value="German Guzman" disabled><br>
+						<br>
+						<input type="text" name="titularCtaCte2" id="titularCtaCte2" value="John Doe" disabled><br>
+						<br>
+						<input type="text" name="titularCtaCte3" id="titularCtaCte3" value="Cosme Fulanitos" disabled><br>
+					</div>
+					<br>					
+					<div>
+						<label for="nroCuenta">Nro de Cuenta: </label> 
+						<input type="text" name="nroCuentaCtaCte" id="nroCuentaCtaCte" value="1234567890" disabled>
+					</div>
+					<br>					
+					<div>
+						<label for="saldo">Saldo: </label>
+						<input type="text" name="saldoCtaCte" id="saldoCtaCte" maxlength="10" value="5000" disabled>
+					</div>
+					<br>
+					<div>
+						<label for="giroEnRojo">Giro al descubierto: </label> 
+						<input type="text" name="giroEnRojo1" id="giroEnRojo1" value="1000" disabled>
+					</div>
+					<br>
+					<div>
+						<label for="cuenta">Tipo de cuenta: </label>
+						<input type="text" name="ctaCte1" id="ctaCte1" value="Cuenta Corriente" disabled>
+					</div>
+					<div>
+						<h2><label>Cuenta 2</label></h2>
+					</div>
+					<div>
+						<label for="titulares">Titular:</label>
+						<input type="text" name="titularCtaSueldo" id="titularCtaSueldo" value="German Guzman" disabled><br>						
+					</div>
+					<br>
+					<div>
+						<label for="titulares">Empleador:</label>
+						<input type="text" name="empleadorCtaSueldo" id="empleadorCtaSueldo" value="Epidata" disabled><br>						
+					</div>
+					<br>
+					<div>
+						<label for="nroCuenta">Nro de Cuenta: </label> 
+						<input type="text" name="nroCuentaCtaSueldo" id="nroCuentaCtaSueldo" value="9999999999" disabled>
+					</div>
+					<br>					
+					<div>
+						<label for="saldo">Saldo: </label>
+						<input type="text" name="saldoCtaSueldo" id="saldoCtaSueldo" maxlength="10" value="8000" disabled>
+					</div>
+					<br>
+					<div>
+						<label for="cuenta">Tipo de cuenta: </label>
+						<input type="text" name="ctaSueldo1" id="ctaSueldo1" value="Cuenta Sueldo" disabled>
+					</div>
+		</div>
+
+		<script>
+			function desplegar() {
+				var x = document.getElementById('todasLasCuentas');
+				if (x.style.display === 'none') {
+				x.style.display = 'block';
+				document.getElementById("verMasMenos").value="Ocultar";
+				} else {
+				x.style.display = 'none';
+				document.getElementById("verMasMenos").value="Mostrar";				
+				}
+			}
+		</script>		
+
+	</body>
+</html>

@@ -5,76 +5,88 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<meta charset="utf-8">
 	</head>
-	<body>
+	<body bgcolor="#E6E6FA">
 		<div align="center">
-			<h1>Datos del cliente</h1>
 			<form>
-				<div ng-app="titular" ng-controller="personController">
-					Nombre: <input type="text" name="nombre" id="nombre" maxlength="15" required title="Ingrese su nombre" ng-model="firstName"><br>
+				<h1>Datos del cliente</h1>
+					<div ng-app="titular" ng-controller="personController">
+						Nombre: <input type="text" name="nombre" id="nombre" maxlength="15" required title="Ingrese su nombre" onkeypress="return soloLetras(event)" ng-model="firstName"><br>
+						<br>
+						Apellido: <input type="text" name="apellido" id="apellido" maxlength="15"  required title="Ingrese su apellido" onkeypress="return soloLetras(event)" ng-model="lastName"><br>
+						<br>
+						Titular: {{firstName + " " + lastName}}
+					</div>
 					<br>
-					Apellido: <input type="text" name="apellido" id="apellido" maxlength="15"  required title="Ingrese su apellido" ng-model="lastName"><br>
+					<div>
+						<label for="dni">DNI: </label>
+						<input type="text" name="dni" id="dni" maxlength="8" required title="Ingrese su DNI" onKeyPress="return soloNumeros(event)">
+					</div>
 					<br>
-					Titular: {{firstName + " " + lastName}}
-				</div>
-				<br>
-				<div>
-					<label for="apellido">DNI: </label>
-					<input type="text" name="dni" id="dni" maxlength="8" required title="Ingrese su DNI" onKeyPress="return soloNumeros(event)">
-				</div>
-				<br>				
-				<div>
-					<input type="reset" value="Restablecer">
-					<input type="button" value="Aceptar">
-				</div>
-			</form>
-			<h1>Datos de la cuenta</h1>
-			<form>
-				<div>
-					<label for="titular">Titular: </label>
-					<input type="text" name="titular" id="titular" required title="Ingrese el titular">
-				</div>
-				<br>			
-				<div>
-					<label for="nroCuenta">Nro de Cuenta: </label> 
-					<input type="text" name="nroCuenta" id="nroCuenta" maxlength="10" required title="Ingrese un Nro de Cuenta" onKeyPress="return soloNumeros(event)">
-				</div>
-				<br>
-				<div>
-					<label for="saldo">Saldo: </label>
-					<input type="text" name="saldo" id="saldo" maxlength="10" required title="Ingrese el saldo" onKeyPress="return soloNumeros(event)">
-				</div>
-				<br>				
-				<div>
-					<label for="cuenta">Tipo de cuenta: </label>
-					<select name="cuenta" id="cuenta">
-						<option>Seleccione un tipo de cuenta</option>
-						<option value="ctaCorriente" selected="selected">Cuenta Corriente</option>
-						<option value="ctaSueldo">Cuenta Sueldo</option>
-					</select>
-				</div>
-				<br>				
-				<div>
-					<input type="reset" value="Restablecer">
-					<input type="button" value="Aceptar">
-				</div>
-			</form>
-		</div>
+					<div>
+						<input type="reset" value="Restablecer">
+					</div>
+				<h1>Datos de la cuenta</h1>
+					<div>
+						<label for="nroCuenta">Nro de Cuenta: </label> 
+						<input type="text" name="nroCuenta" id="nroCuenta" maxlength="10" required title="Ingrese un Nro de Cuenta" onKeyPress="return soloNumeros(event)">
+					</div>
+					<div>
+					<br>
+						<label for="saldo">Saldo: </label>
+						<input type="text" name="saldo" id="saldo" maxlength="10" required title="Ingrese el saldo" onKeyPress="return soloNumeros(event)">
+					</div>
+					<br>				
+					<div>
+						<label for="cuenta">Tipo de cuenta: </label>
+						<select name="cuenta" id="cuenta">
+							<option>Seleccione un tipo de cuenta</option>
+							<option value="ctaCorriente" selected="selected">Cuenta Corriente</option>
+							<option value="ctaSueldo">Cuenta Sueldo</option>
+						</select>
+					</div>
+					<br>
+					<div>
+						<input type="reset" value="Restablecer">
+					</div>
+				<h1>Último paso</h1>
+					<input type="checkbox" name="aceptoTerminos" value="aceptoTerminos" onchange="document.getElementById('aceptar').disabled = !this.checked;">He leido y acepto los terminos y condiciones<br>
+					<br>
+					<input type="submit" id="aceptar" value="Aceptar" onclick="myFunction()" disabled>
+				</form>
+			</div>
 		
 		<script>
 			var app = angular.module('titular', []);
 			app.controller('personController', function($scope) {
-			$scope.firstName = "";
-			$scope.lastName = "";
+				$scope.firstName = "";
+				$scope.lastName = "";
 			});
 		</script>
 
 		<script type="text/javascript">
 			// Solo permite ingresar numeros.
 			function soloNumeros(e){
-			var key = window.Event ? e.which : e.keyCode
-			return (key >= 48 && key <= 57)
+				var key = window.Event ? e.which : e.keyCode
+				return (key >= 48 && key <= 57)
 			}
-		</script>		
+		</script>
+		
+		<script>
+			// Solo permite ingresar letras.
+			function soloLetras(e){
+				tecla = (document.all) ? e.keyCode : e.which;
+				if (tecla==8) return true;
+				patron =/[A-Za-z]/;
+				te = String.fromCharCode(tecla);
+				return patron.test(te);
+			}
+		</script>
+
+		<script>
+			function myFunction() {
+				confirm("¿Esta seguro de que desea enviar esta informacion?");
+			}
+		</script>
 		
 	</body>
 </html>
